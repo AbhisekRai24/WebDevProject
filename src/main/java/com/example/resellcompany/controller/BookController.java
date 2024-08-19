@@ -4,6 +4,7 @@ package com.example.resellcompany.controller;
 import com.example.resellcompany.entity.Book;
 import com.example.resellcompany.pojo.BookPojo;
 import com.example.resellcompany.service.BookService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,21 +40,23 @@ public class BookController {
     public ResponseEntity<String> createBooking(@RequestBody BookPojo bookPojo) {
         Integer userId = bookPojo.getUserId();
         Integer bikeId = bookPojo.getBikeId();
-        LocalDateTime bookingDateTime;
+        LocalDateTime bookingDateTime = bookPojo.getBookingDateTime();
 
 
-        try {
-            // Assuming bookPojo.getBookingDateTime() returns a date-time string in yyyy-MM-dd'T'HH:mm:ss format
-            String dateTimeString = String.valueOf(bookPojo.getBookingDateTime());
-            bookingDateTime = LocalDateTime.parse(dateTimeString);
-        } catch (DateTimeParseException e) {
+
+        if (bookingDateTime == null) {
             return ResponseEntity.badRequest().body("Invalid date-time format");
         }
 
-        // Call the service to save the booking
-        bookService.saveBooking(bookPojo, userId, bikeId, bookingDateTime);
-
-        return ResponseEntity.ok("Booking successful");
+        try {
+            // Call the service to save the booking
+            bookService.saveBooking(bookPojo, userId, bikeId, bookingDateTime);
+            return ResponseEntity.ok("Booking successful");
+        } catch (Exception e) {
+            // Log the exception
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving booking");
+        }
     }
 //@PostMapping("/save")
 //public ResponseEntity<String> createBooking(@RequestBody BookPojo bookPojo) {
@@ -72,15 +75,6 @@ public class BookController {
 
 
 
-//    @DeleteMapping("/{bookingId}")
-//    public ResponseEntity<String> deleteBooking(@PathVariable Integer bookingId, @RequestParam Integer userId) {
-//        boolean isDeleted = bookService.deleteById(bookingId, userId);
-//        if (isDeleted) {
-//            return ResponseEntity.ok("Booking deleted successfully");
-//        } else {
-//            return ResponseEntity.status(403).body("You are not authorized to delete this booking");
-//        }
-//    }
 
     @PutMapping("/updateStatus/{id}")
     public ResponseEntity<Book> updateBookingStatus(@PathVariable Integer id,@RequestBody BookPojo bookPojo) {

@@ -40,7 +40,7 @@ public class BikeController {
     }
 
     @DeleteMapping("remove/{id}")
-    public void deleteFlight(@PathVariable Integer id) {
+    public void deleteBike(@PathVariable Integer id) {
         bikeService.deleteBike(id);
     }
 }
