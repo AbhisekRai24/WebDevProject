@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -15,11 +18,19 @@ public class Book {
     @Id
     private Integer id;
 
-    @Column(name="book_time")
-    private Integer book_time;
-
-
     @Column(name="book_date")
-    private Integer book_date;
+    private LocalDate bookingdate;
+
+    @Column(name = "status" ,nullable = true)
+    private boolean status;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "bike_id", nullable = false)
+    private Bike bike;
+
 
 }

@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,6 +16,10 @@ import lombok.Setter;
 
 public class BookPojo {
     private Integer id;
-    private Integer book_time;
-    private Integer book_date;
+    private LocalDateTime bookingDateTime;
+    private boolean status;
+    private Integer userId;       // ID of the user making the booking
+    private Integer bikeId;
+
+
 }

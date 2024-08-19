@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -18,19 +20,20 @@ public class User {
     @Column(name="username")
     private String username;
 
+    @Column(name = "email", length = 255)
+    private String email;
+
     @Column(name="password")
     private String password;
-
-    @Column (name="role")
-    private String role;
 
     @Column(name="phone")
     private String phone;
 
-    @Column(name="email")
-    private String email;
-
     @Column(name="address")
     private String address;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Book> books;
+
 
 }

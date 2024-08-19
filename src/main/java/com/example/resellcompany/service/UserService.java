@@ -4,13 +4,23 @@ import com.example.resellcompany.entity.User;
 import com.example.resellcompany.pojo.UserPojo;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     void saveData(UserPojo userPojo);
-    List getAll();
+
+    List<User>findAll();
+
+    User findbyEmail(String email);
+
     boolean login(String username, String password);
-    User fetchbyId( Integer id);
-    void delete(Integer id);
+
+    User getUserById(Integer id);
+
+    void deleteById(Integer id);
 
 
+    UserPojo findUserByEmail(String email);
+
+    User updateUser(Integer id, UserPojo userPojo);
 }

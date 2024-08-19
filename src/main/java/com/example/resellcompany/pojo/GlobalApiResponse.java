@@ -5,17 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
+public class GlobalApiResponse<T> {
+    private Integer status;
+    private String message;
+    private T data;
 
-
-public class UserPojo {
-    private Integer id;
-    private String username;
-    private String password;
-    private String phone;
-    private String email;
-    private String address;
 }

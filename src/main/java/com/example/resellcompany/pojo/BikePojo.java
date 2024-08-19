@@ -17,6 +17,6 @@ public class BikePojo {
     private String model;
     private String price;
     private String description;
-    private String availabilitystatus;
+    private String availability_status;
 
 }

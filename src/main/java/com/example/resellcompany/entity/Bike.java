@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -29,5 +31,10 @@ public class Bike {
     private String description;
 
     @Column(name="availability_status")
-    private String availabilitystatus;
+    private String availability_status;
+
+
+    @OneToMany(mappedBy = "bike")
+    private Set<Book> books;
+
 }
